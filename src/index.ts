@@ -1,6 +1,9 @@
+import { config } from "dotenv";
+import path from "path";
 import { argv } from "node:process";
 import { Database } from "./database";
-const init = () => {
+config({ path: path.resolve(__dirname, "../.env") });
+const init = async() => {
   try {
     const DatabaseType = argv[2];
     const DatabaseName = argv[3];
@@ -13,8 +16,8 @@ const init = () => {
       return;
     }
     const databaseObj = new Database(DatabaseType, DatabaseName);
-    databaseObj.Backup();
-    console.log("Successfully created backup file");
+    const res=await databaseObj.Backup();
+    console.log(`Successfully created backup file at ${res}`);
   } catch (err) {
     console.error(err);
   }

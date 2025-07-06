@@ -17,6 +17,7 @@
     "nodemon": "^3.1.10"
   },
   "devDependencies": {
-    "@types/dotenv": "^8.2.3"
+    "@types/dotenv": "^8.2.3",
+    "@types/node": "^24.0.10"
   }
 }
