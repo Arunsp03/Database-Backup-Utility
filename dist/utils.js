@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getFormattedDate = void 0;
+exports.checkDBTypeParams = exports.getFormattedDate = void 0;
 const getFormattedDate = () => {
     const now = new Date();
     const dd = String(now.getDate()).padStart(2, '0');
@@ -13,3 +13,14 @@ const getFormattedDate = () => {
     return formattedDate;
 };
 exports.getFormattedDate = getFormattedDate;
+const SUPPORTED_DB_TYPES = ["postgres", "mysql"];
+const checkDBTypeParams = (dbType) => {
+    try {
+        return SUPPORTED_DB_TYPES.includes(dbType.toLowerCase());
+    }
+    catch (err) {
+        console.error(err);
+        return false;
+    }
+};
+exports.checkDBTypeParams = checkDBTypeParams;

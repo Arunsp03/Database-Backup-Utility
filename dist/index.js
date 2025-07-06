@@ -16,6 +16,7 @@ const dotenv_1 = require("dotenv");
 const path_1 = __importDefault(require("path"));
 const node_process_1 = require("node:process");
 const database_1 = require("./database");
+const utils_1 = require("./utils");
 (0, dotenv_1.config)({ path: path_1.default.resolve(__dirname, "../.env") });
 const init = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -29,12 +30,18 @@ const init = () => __awaiter(void 0, void 0, void 0, function* () {
             console.error("DatabaseType is Mandatory");
             return;
         }
+        if (!(0, utils_1.checkDBTypeParams)(DatabaseType)) {
+            console.error(`Unsupported database type ${DatabaseType}.Only Postgres and Mysql are supported`);
+            return;
+        }
         const databaseObj = new database_1.Database(DatabaseType, DatabaseName);
         const res = yield databaseObj.Backup();
         console.log(`Successfully created backup file at ${res}`);
+        process.exit(0);
     }
     catch (err) {
         console.error(err);
+        process.exit(1);
     }
 });
 init();

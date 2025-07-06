@@ -15,3 +15,14 @@ return formattedDate;
 
  
 };
+const SUPPORTED_DB_TYPES:string[]=["postgres","mysql"];
+export const checkDBTypeParams=(dbType:string):boolean=>{
+try{
+return SUPPORTED_DB_TYPES.includes(dbType.toLowerCase());
+}
+catch(err:any)
+{
+    console.error(err);
+    return false;
+}
+}
